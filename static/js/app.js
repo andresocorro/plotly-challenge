@@ -8,7 +8,7 @@ function getPlotID(id) {
         // console.log(ids)
 
         var allIDs =  data.samples[0].otu_ids
-        console.log(allIDs)
+        // console.log(allIDs)
 
         var sampleValues = data.samples[0].sample_values.slice(0,10).reverse();
         // console.log(sampleValues)
@@ -21,7 +21,7 @@ function getPlotID(id) {
         var allLabels = data.samples[0].otu_labels
 
         var otuID = ids.map(d => "OTU " + d);
-        console.log(`OTU IDS: ${otuID}`)
+        // console.log(`OTU IDS: ${otuID}`)
         
         // BAR PLOT
         
@@ -72,21 +72,27 @@ function getPlotID(id) {
         var data2 = [trace2]
 
         Plotly.newPlot("bubble", data2, layout2)
-
-
-
-
-
-
-
-
-
-
-
     });
 };
 
 // getPlotID(940);
+
+//  DEMOGRAPHIC INFO
+
+// grab data
+function demoInfo(id){
+    d3.json("./data/samples.json").then((data) =>{
+        // console.log(data);
+
+        // ALL METADATA
+        var metadata = data.metadata;
+        console.log(metadata);
+
+        // FILTER BY 
+
+    })
+
+}
 
 // Default rendering of page
 function init(){
@@ -101,6 +107,7 @@ function init(){
         });
 
         getPlotID(data.names[0]);
+        demoInfo(data.names[0]);
 
     });
  
