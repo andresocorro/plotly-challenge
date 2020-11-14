@@ -99,12 +99,19 @@ function demoInfo(id){
         demographicInfo.html("");
 
         Object.entries(metaResult).forEach((key) =>{
-            demographicInfo.append("h4").text(key[0].toUpperCase() + ": " + key[1] + "\n");
+            demographicInfo.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");
 
         });
 
     });
 
+}
+
+// NOW ADD OPTIONCHANGE TO CALL NECESSARY ID
+
+function optionChanged(id){
+    getPlotID(id);
+    demoInfo(id);
 }
 
 // Default rendering of page
