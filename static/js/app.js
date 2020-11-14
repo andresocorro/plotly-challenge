@@ -89,8 +89,21 @@ function demoInfo(id){
         console.log(metadata);
 
         // FILTER BY 
+        var metaResult = metadata.filter(result => result.id.toString() === id)[0];
+        console.log(metaResult)
 
-    })
+        // indicate where to add data on html
+        var demographicInfo = d3.select("#sample-metadata");
+
+        // delete previous data before displaying new one
+        demographicInfo.html("");
+
+        Object.entries(metaResult).forEach((key) =>{
+            demographicInfo.append("h4").text(key[0].toUpperCase() + ": " + key[1] + "\n");
+
+        });
+
+    });
 
 }
 
