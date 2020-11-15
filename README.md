@@ -24,4 +24,4 @@ A bubble chart displaying similar data but for all items to visualize the OTUs a
 A quick summary describing the subject being studied. It's ID, ethnicity and some general background info on the individual
 
 
-![demo info]((static/images/demo_info.JPG))
+![demo info](static/images/demo_info.JPG)
