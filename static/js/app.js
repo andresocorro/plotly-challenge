@@ -1,34 +1,40 @@
+function init(){
+    var dropdown = d3.select("#selDataset");
+
+    d3.json("./data/samples.json").then((data) =>{
+        // console.log(data)
+
+
+        data.names.forEach(function(name){
+            dropdown.append("option").text(name).property("value");
+        });
+
+        getPlotID(data.names[0]);
+        demoInfo(data.names[0]);
+
+    });
+ 
+}
+
 function getPlotID(id) {
     d3.json("./data/samples.json").then((data) =>{
         // console.log(data);
 
+        
         // GRAB DATA FOR PLOTS
-        
-        var ids = data.samples[0].otu_ids.slice(0,10).reverse();
-        // console.log(ids)
-
-        var allIDs =  data.samples[0].otu_ids
-        // console.log(allIDs)
-
-        var sampleValues = data.samples[0].sample_values.slice(0,10).reverse();
-        // console.log(sampleValues)
-
-        var allValues =  data.samples[0].sample_values
-        
-        var labels = data.samples[0].otu_labels.slice(0,10).reverse();
-        // console.log(labels)
-        
-        var allLabels = data.samples[0].otu_labels
-
-        var otuID = ids.map(d => "OTU " + d);
-        // console.log(`OTU IDS: ${otuID}`)
+        var samples = data.samples;
+        var filtering = samples.filter(sampleobj => sampleobj.id == id);
+        var result = filtering[0];
+        var sample_values = result.sample_values;
+        var otu_ids = result.otu_ids;
+        var otu_labels = result.otu_labels;
         
         // BAR PLOT
         
         var trace1 ={
-            x: sampleValues,
-            y: otuID,
-            hovertext: labels,
+            x: sample_values.slice(0,10).reverse(),
+            y: otu_ids.slice(0,10).map(otuID => `OTU ${otuID}`).reverse(),
+            hovertext: otu_labels.slice(0,10).reverse(),
             marker:{color: '#3366CC', alpha: .8},
             type:'bar',
             orientation:'h'
@@ -53,14 +59,14 @@ function getPlotID(id) {
   
 
         var trace2 = {
-            x: allIDs,
-            y: allValues,
+            x: otu_ids,
+            y: sample_values,
             mode: "markers",
             marker:{
-                size: allValues,
-                color: allIDs
+                size: sample_values,
+                color: otu_ids
             },
-            text: allLabels
+            text: otu_labels
         }
 
         var layout2 = {
@@ -75,8 +81,6 @@ function getPlotID(id) {
     });
 };
 
-// getPlotID(940);
-
 //  DEMOGRAPHIC INFO
 
 // grab data
@@ -86,11 +90,11 @@ function demoInfo(id){
 
         // ALL METADATA
         var metadata = data.metadata;
-        console.log(metadata);
+        // console.log(metadata);
 
         // FILTER BY 
         var metaResult = metadata.filter(result => result.id.toString() === id)[0];
-        console.log(metaResult)
+        // console.log(metaResult)
 
         // indicate where to add data on html
         var demographicInfo = d3.select("#sample-metadata");
@@ -109,28 +113,11 @@ function demoInfo(id){
 
 // NOW ADD OPTIONCHANGE TO CALL NECESSARY ID
 
-function optionChanged(id){
-    getPlotID(id);
-    demoInfo(id);
+function optionChanged(newid){
+    getPlotID(newid);
+    demoInfo(newid);
 }
 
 // Default rendering of page
-function init(){
-    var dropdown = d3.select("#selDataset");
-
-    d3.json("./data/samples.json").then((data) =>{
-        // console.log(data)
-
-
-        data.names.forEach(function(name){
-            dropdown.append("option").text(name).property("value");
-        });
-
-        getPlotID(data.names[0]);
-        demoInfo(data.names[0]);
-
-    });
- 
-}
 
 init();
