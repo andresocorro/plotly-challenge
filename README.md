@@ -1,5 +1,7 @@
 # Plotly-challenge - Belly Button Biodiversity
 
+[Github Pages Link Here](https://andresocorro.github.io/plotly-challenge/)
+
 This homework consisted in being able to build an interactive dashboard using Plotly. 
 
 The data is in a json called data.json. The data consists on exploring the biodiversity on a human's belly button. It includes a small handful of microbial species called operational taxonomic units (OTU) and using D3 library we were able to build the following:
